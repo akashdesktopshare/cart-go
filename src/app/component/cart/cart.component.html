@@ -1,0 +1,156 @@
+
+                    <div class="loader" *ngIf="loader">
+                      <div class="justify-content-center jimu-primary-loading"></div>
+                    </div>
+<div class="container-fluid cart-container d-flex align-items-center justify-content-center">
+  <div class="row mb-1">
+    <div class="col-sm-12 my-5 text-center" *ngIf="cartData?.length==0 && !loader">
+      <div class="display-1">Your Cart Is Empty !</div>
+    </div>
+  </div>
+  <section *ngIf="cartData?.length>0" style="background-color: whitesmoke;">
+    <div class="container-fluid py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12">
+          <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+            <div class="card-body p-0">
+              <div class="row g-0">
+                <div class="col-lg-8">
+                  <div class="p-5">
+                    <div class="d-flex justify-content-between align-items-center mb-5">
+                      <h1 class="fw-bold mb-0 text-black">Shopping Cart</h1>
+                      <h6 class="mb-0 text-muted">{{cartData.length}} items</h6>
+                    </div>
+                    <ng-container *ngFor="let item of cartData">
+
+                      <ng-container *ngIf="item?.product">
+
+                        <ng-container *ngFor="let prodItem of item.product">
+                          <hr class="my-4">
+                          <div class="row mb-4 d-flex justify-content-between align-items-baseline">
+                            <div class="col-md-2 col-lg-2 col-xl-2 text-center">
+                              <img [src]="basePath+prodItem.image" class="img-fluid rounded-3" alt="Cotton T-shirt">
+                            </div>
+                            <div class="col-md-3 col-lg-3 col-xl-3 text-center">
+                            <a href="javascript:void(0);" [routerLink]="['/single-product',prodItem.id]">
+                            <h5 class="card-title">{{prodItem.name|titlecase}}</h5>
+                        </a>
+                            </div>
+                            <div class="col-md-3 col-lg-3 col-xl-2 d-flex align-items-baseline">
+                              <button class="btn minus-item px-2" [ngClass]="{'disabled':item.quantity==1}"
+                                (click)="handleQty('minus',item)">
+                                <strong>-</strong>
+                              </button>
+
+                              <input id="form1" min="1" name="quantity" [value]="item.quantity" type="number"
+                                class="form-control mb-4 text-center form-control-sm" disabled />
+
+                              <button class="btn plus-item px-2" (click)="handleQty('add',item)">
+                                <strong>+</strong>
+                              </button>
+                            </div>
+                            <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1 mb-3 text-center">
+                              <h6 class="mb-0">${{item.quantity*prodItem.price}}</h6>
+                            </div>
+                            <div class="col-md-1 col-lg-1 col-xl-1 text-center">
+                              <a href="javascript:void(0);" class="text-muted" (click)="deleteCartItem(prodItem)"><img
+                                  class="delete-img" src="../../../assets/images/trash.svg"></a>
+                            </div>
+                          </div>
+                        </ng-container>
+                      </ng-container>
+                      <ng-container *ngIf="!item?.product">
+                        <hr class="my-4">
+                          <div class="row mb-4 d-flex justify-content-between align-items-baseline">
+                            <div class="col-md-2 col-lg-2 col-xl-2 text-center">
+                              <img [src]="basePath+item.image" class="img-fluid rounded-3" alt="Cotton T-shirt">
+                            </div>
+                            <div class="col-md-3 col-lg-3 col-xl-3 text-center">
+                              <h6 class="text-black mb-4">{{item.name|titlecase}}</h6>
+                            </div>
+                            <div class="col-md-3 col-lg-3 col-xl-2 d-flex align-items-baseline">
+                              <button class="btn minus-item px-2" [ngClass]="{'disabled':item.quantity==1}"
+                                (click)="item.quantity = item.quantity-1;">
+                                <strong>-</strong>
+                              </button>
+
+                              <input id="form1" min="1" name="quantity" [value]="item.quantity" type="number"
+                                class="form-control mb-4 text-center form-control-sm" disabled />
+
+                              <button class="btn plus-item px-2" (click)="item.quantity = item.quantity+1;">
+                                <strong>+</strong>
+                              </button>
+                            </div>
+                            <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1 mb-3 text-center">
+                              <h6 class="mb-0">${{item.quantity*item.price}}</h6>
+                            </div>
+                            <div class="col-md-1 col-lg-1 col-xl-1 text-center">
+                              <a href="javascript:void(0);" class="text-muted" (click)="deleteCartItem(item)"><img
+                                  class="delete-img" src="../../../assets/images/trash.svg"></a>
+                            </div>
+                          </div>
+                      </ng-container>
+                    </ng-container>
+
+                    <hr class="my-4">
+
+                    <div class="pt-5">
+                      <h6 class="mb-0"><a routerLink="/" class="text-body"><i
+                            class="fas fa-long-arrow-alt-left me-2"></i>Back to shop</a></h6>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4 bg-light">
+                  <div class="p-5">
+                    <h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>
+                    <hr class="my-4">
+
+                    <div class="d-flex justify-content-between mb-4">
+                      <h5 class="text-uppercase">items x {{cartData?.length}}</h5>
+                      <h5>${{totalPrice}}</h5>
+                    </div>
+
+                    <h5 class="text-uppercase mb-3"></h5>
+                    <div class="d-flex justify-content-between mb-4">
+                      <h5 class="text-uppercase">Shipping</h5>
+                      <h5>$5</h5>
+                    </div>
+
+                    <!-- <div class="mb-4 pb-2">
+                      <select class="select form-control">
+                        <option value="1">Standard-Delivery- €5.00</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                        <option value="4">Four</option>
+                      </select>
+                    </div> -->
+
+                    <!-- <h5 class="text-uppercase mb-3">Give code</h5>
+
+                    <div class="mb-5">
+                      <div class="form-outline">
+                        <input type="text" id="form3Examplea2" class="form-control form-control-lg" />
+                        <label class="form-label" for="form3Examplea2">Enter your code</label>
+                      </div>
+                    </div> -->
+
+                    <hr class="my-4">
+
+                    <div class="d-flex justify-content-between mb-5">
+                      <h5 class="text-uppercase">Total price</h5>
+                      <h5>${{totalPrice+5}}</h5>
+                    </div>
+                    <!--   
+                    <button type="button" class="btn btn-dark btn-block btn-lg"
+                      data-mdb-ripple-color="dark">Register</button> -->
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

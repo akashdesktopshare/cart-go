@@ -1,0 +1,18 @@
+<!-- NG-ZORRO
+<a href="https://github.com/NG-ZORRO/ng-zorro-antd" target="_blank" style="display: flex;align-items: center;justify-content: center;height: 100%;width: 100%;">
+  <img height="300" src="https://img.alicdn.com/tfs/TB1X.qJJgHqK1RjSZFgXXa7JXXa-89-131.svg">
+  <h1>Shopping Website Akash</h1>
+</a> -->
+<div class="normal-user" *ngIf="!isAdmin && !isVendor">
+  <app-header></app-header>
+  <router-outlet></router-outlet>
+  <app-footer></app-footer>
+</div>
+<div class="admin-panel" *ngIf="isAdmin">
+  <router-outlet></router-outlet>
+  <!-- <app-footer></app-footer> -->
+</div>
+<div class="admin-panel" *ngIf="isVendor">
+  <router-outlet></router-outlet>
+  <!-- <app-footer></app-footer> -->
+</div>

@@ -1,0 +1,78 @@
+<div class="container-fluid single-product-container" style="margin: 50px 0px;">
+    <div class="row">
+        <div class="col-sm-12 text-center">
+        </div>
+    </div>
+
+    <div class="loader" *ngIf="loader">
+        <div class="justify-content-center jimu-primary-loading"></div>
+      </div>
+    <div class="container image-box">
+    <ng-container *ngIf="singleProduct && !loader">
+        <div class="row my-5">
+            <div class="col-lg-6 text-center">
+                <div class="border rounded-0 mb-3 d-flex justify-content-center">
+                    <img height="500" width="500" class="p-3 rounded-4" [src]="baseImgPath+singleProduct.image" id="big-img" alt="Card image cap">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="product-details ps-lg-3">
+                    <h3 class="card-title h3 mb-3">{{singleProduct.name|titlecase}}</h3>
+                    <div class="card-text mb-3"> 
+                        <img src="../../../assets/images/star-fill.svg" class="me-3" width="18" height="16" alt="">
+                        <img src="../../../assets/images/star-fill.svg" class="me-3" width="18" height="16" alt="">
+                        <img src="../../../assets/images/star-fill.svg" class="me-3" width="18" height="16" alt="">
+                        <img src="../../../assets/images/star-fill.svg" class="me-3" width="18" height="16" alt="">
+                         <!-- {{singleProduct.rating}} -->
+                        </div>
+                    <div class="card-text h3 mb-3"> ${{singleProduct.price-singleProduct.discount_id}}</div>
+                    <div class="card-text description mb-3">{{singleProduct.description}} Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil eaque amet repudiandae, cum harum numquam omnis temporibus maxime impedit natus aspernatur corporis nemo incidunt exercitationem facilis reprehenderit autem, at excepturi praesentium voluptatem aliquam iure officia. Voluptate dignissimos velit earum, officia fugiat iste facere omnis doloribus!</div>
+                    <div class="row mt-3">
+                        <strong class="col-3">Type:</strong>
+                        <dd class="col-9">Regular</dd>
+            
+                        <strong class="col-3">Category</strong>
+                        <dd class="col-9">Brown</dd>
+            
+                        <strong class="col-3">Sub-Category</strong>
+                        <dd class="col-9">Cotton, Jeans</dd>
+                      </div>
+                      <div class="col-sm-4 mt-3 col-6 mb-3">
+                        <label class="mb-2 d-block">Quantity</label>
+                        <div class="input-group mb-3" style="width: 170px;">
+                          <button class="btn btn-white border border-secondary px-3" type="button" (click)="singleProduct.quantity = singleProduct.quantity-1">
+                            -
+                          </button>
+                          <input type="text" class="form-control text-center border border-secondary" [value]="singleProduct.quantity" >
+                          <button class="btn btn-white border border-secondary px-3" type="button" (click)="singleProduct.quantity = singleProduct.quantity+1">
+                            +
+                          </button>
+                        </div>
+                      </div>
+                    <div class="add-to-cart mt-4">
+                        <a href="javascript:void(0);" class="btn btn-sm btn-warning px-3" (click)="addToCart(singleProduct)">Add
+                            to Cart</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-4">
+                <div class="container">
+                    <ul class="multiple-product-image d-flex justify-content-around list-unstyled">
+                        <!-- loop will be here  -->
+                        <li class="multi-img border border-dark p-1" (mouseenter)="changeBigImg('1690020579752.png')" (mouseleave)="changeBigImg(singleProduct.image)" > <img [src]="baseImgPath+singleProduct.image" width="50" height="50" alt=""> </li>
+                        <li class="multi-img border border-dark p-1"> <img [src]="baseImgPath+singleProduct.image" width="50" height="50" alt=""> </li>
+                        <li class="multi-img border border-dark p-1"> <img [src]="baseImgPath+singleProduct.image" width="50" height="50" alt=""> </li>
+                        <li class="multi-img border border-dark p-1"> <img [src]="baseImgPath+singleProduct.image" width="50" height="50" alt=""> </li>
+                        <li class="multi-img border border-dark p-1"> <img [src]="baseImgPath+singleProduct.image" width="50" height="50" alt=""> </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-7"></div>
+        </div>
+    </ng-container>
+</div>
+
+</div>

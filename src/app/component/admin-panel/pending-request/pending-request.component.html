@@ -1,0 +1,46 @@
+<div class="container-fluid">
+    <div class="row p-3 bg-light align-items-center">
+        <div class="col-sm-6  ps-3 h3 ">Pending Request</div>
+        <div class="col-sm-6 text-end pe-3">
+            </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-sm-4 ps-4">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb ps-2">
+                  <li class="breadcrumb-item">Admin</li>
+                  <li class="breadcrumb-item active" aria-current="page">Pending Request</li>
+                </ol>
+              </nav>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="table border-top">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>Message</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody class="align-items-center">
+                    <tr *ngFor="let list of vendorRequestList">
+                        <td class="p-3">{{list.id}}</td>
+                        <td class="p-3">{{list.name}}</td>
+                        <td class="p-3">{{list.phone}}</td>
+                        <td class="p-3">{{list.email}}</td>
+                        <td class="p-3">{{list.message}}</td>
+                        <td class="p-3"><button (click)="acceptRequest(list.id,list.status)" class="btn btn-success btn-sm rounded-0 mx-2"> <img src="../../../../assets/images/check.svg" alt="" style="filter: invert(1);"> </button><button (click)="acceptRequest(list.id,list.status)" class="btn btn-danger btn-sm rounded-0"> <img src="../../../../assets/images/cross.svg" alt="" style="filter: invert(1);"></button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

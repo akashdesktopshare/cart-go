@@ -1,0 +1,76 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-10">
+            <div class="d-flex align-items-baseline">
+                <h6 class="me-3">Personal Information</h6>
+                <button class="btn btn-sm btn-primary" (click)="editProfile()">{{isEditable ? 'Edit':'Cancel'}}</button>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <button class="btn btn-sm btn-danger" *ngIf="!isEditable" (click)="saveProfile()" >Save</button>
+        </div>
+    </div>
+    <div [formGroup]="editProfileModal">
+        <div class="row my-3">
+            <div class="col-sm-12">
+                <div class="d-flex">
+                    <div class="form-group me-3">
+                        <input type="text" class="form-control rounded-0" [disabled]="isEditable" formControlName="first_name">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control rounded-0" [disabled]="isEditable" formControlName="last_name">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row my-5">
+            <div class="col-sm-12">
+                <h6>Your Gender</h6>
+                <div class="d-flex">
+                <div class="form-check me-3">
+                    <input class="form-check-input" type="radio" name="gender" id="male" [checked]="editProfileModal.value.gender == '0'" >
+                    <label class="form-check-label" for="male">
+                      Male
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="gender" id="female" [checked]="editProfileModal.value.gender == '1'">
+                    <label class="form-check-label" for="female">
+                      Female
+                    </label>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div class="row my-5">
+            <div class="col-sm-12">
+                <h6><strong>Email &nbsp; Address</strong></h6>
+                <div class="form-group">
+                    <input type="text" class="form-control rounded-0 w-25" [disabled]="isEditable" formControlName="email">
+                </div>
+            </div>
+        </div>
+        <div class="row my-5">
+            <div class="col-sm-12">
+                <h6><strong>Mobile &nbsp; Number</strong></h6>
+                <div class="form-group">
+                    <input type="text" class="form-control rounded-0 w-25" [disabled]="isEditable" formControlName="mobile">
+                </div>
+            </div>
+        </div>
+        <div class="row my-3">
+            <div class="col-sm-12">
+                <h6><strong>City &nbsp; State</strong></h6>
+                <div class="d-flex">
+                    <div class="form-group me-3">
+                        <input type="text" class="form-control rounded-0" [disabled]="isEditable" formControlName="city">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control rounded-0" [disabled]="isEditable" formControlName="state">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>

@@ -1,0 +1,35 @@
+.card-container .card {
+    position: relative;
+    width: 20rem;
+    padding: 20px 20px;
+    border: none;
+    border-radius: 0px;
+    box-shadow: 0 4px 24px 0 rgba(34, 41, 47, 0.1);
+    transition: all 0.3s ease-in-out;
+  
+    .sub-cat-btn{
+        border: none;
+        color: var(--white);
+        background-color: var(--blue);
+      }
+  }
+  
+  .card-container .card:hover{
+    border-radius: 5px;
+    transform: translateY(-5px);
+    box-shadow: 0 4px 25px 0 rgba(34, 41, 47, 0.25);
+  }
+
+  .card-container .card-body .form-switch .form-check-input{
+    width: 3rem !important;
+    height: 1.5rem !important;
+}
+
+  .card-container .card-body .remove-product-hot img{
+    cursor: pointer;
+    transition: 0.2s all ease;
+
+    &:hover{
+      transform: scale(1.1);
+    }
+}

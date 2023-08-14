@@ -1,0 +1,96 @@
+<ng-container *ngIf="isAdminLoggedIn">
+<nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+        <a class="nav-link align-items-center home-link" href="/">
+            <img src="../../assets/bag.png" alt="" width="65" height="60">
+           <span class="">Go Cart</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="display-6 text-white" id="navbarSupportedContent" [title]="loggedInUserDetails.email">
+            Welcome, {{loggedInUserDetails.first_name|titlecase}}
+        </div>
+    </div>
+</nav>
+<div class="container-fluid list-category">
+    <div class="row flex-nowrap">
+        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 section-background">
+            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                <a href="javascript:void(0);" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                    <span class="fs-5 d-none d-sm-inline"></span>
+                </a>
+                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                    <li class="nav-item h6 w-100">
+                        <a href="javascript:void(0);" routerLink="dashboard" class="nav-link align-items-center px-0" routerLinkActive="active-tab" #rla="routerLinkActive" [ngClass]="{'active-tab':rla.isActive}">
+                          <img src="../../../assets/images/dashboard.svg" width="20" height="20" class="ms-3" alt=""> <span class="ms-1 d-none d-sm-inline pe-3">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item h6 w-100">
+                        <a href="javascript:void(0);" routerLink="category" class="nav-link align-items-center px-0" routerLinkActive="active-tab" #rla="routerLinkActive">
+                          <img src="../../../assets/images/category.svg" width="20" height="20" class="ms-3" alt=""> 
+                          <span class="ms-1 d-none d-sm-inline pe-3">Category</span>
+                        </a>
+                    </li>
+                    <li class="nav-item h6 w-100">
+                        <a href="javascript:void(0);" routerLink="hot-category" class="nav-link align-items-center px-0" routerLinkActive="active-tab" #rla="routerLinkActive">
+                          <img src="../../../assets/images/category.svg" width="20" height="20" class="ms-3" alt=""> 
+                          <span class="ms-1 d-none d-sm-inline pe-3">Hot-Category</span>
+                        </a>
+                    </li>
+                    <li class="nav-item h6 w-100">
+                        <a href="javascript:void(0);" routerLink="users" class="nav-link align-items-center px-0" routerLinkActive="active-tab" #rla="routerLinkActive">
+                          <img src="../../../assets/images/users.svg" width="20" height="20" class="ms-3" alt=""> 
+                          <span class="ms-1 d-none d-sm-inline pe-3">Users</span>
+                        </a>
+                    </li>
+                    <li class="nav-item h6 w-100">
+                        <a href="javascript:void(0);" routerLink="vendors" class="nav-link align-items-center px-0" routerLinkActive="active-tab" #rla="routerLinkActive">
+                          <img src="../../../assets/images/service-provider.svg" width="20" height="20" class="ms-3" alt=""> 
+                          <span class="ms-1 d-none d-sm-inline pe-3">Vendors</span>
+                        </a>
+                    </li>
+                    <li class="nav-item h6 w-100">
+                        <a href="javascript:void(0);" class="nav-link align-items-center px-0" routerLinkActive="active-tab" #rla="routerLinkActive">
+                          <img src="../../../assets/images/service-provider.svg" width="20" height="20" class="ms-3" alt=""> 
+                          <span class="ms-1 d-none d-sm-inline pe-3" (click)="logout()">LogOut</span>
+                        </a>
+                    </li>
+                </ul>
+                <hr>
+            </div>
+        </div>
+        <div class="col py-3">
+           <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>
+</ng-container>
+<ng-container *ngIf="!isAdminLoggedIn">
+    <div class="container-fluid pt-5" style="background-color: whitesmoke;">
+        <div class="row mt-5 justify-content-center align-items-center align-content-center">
+            <div class="col-sm-3 m-5">
+                <div class="form">
+                    <p class="title">Login </p>
+                    <p class="message">Login to Dashboard. </p>
+                    <label>
+                        <input required="" name="email" placeholder="" [value]="credentials['email']" [(ngModel)]="credentials['email']" type="email" class="input">
+                        <span>Email</span>
+                    </label> 
+                        
+                    <label>
+                        <input required="" name="password" placeholder="" [value]="credentials['password']" [(ngModel)]="credentials['password']" type="password" class="input">
+                        <span>Password</span>
+                    </label>
+                    <strong class="text-danger">{{errorMessage}}</strong>
+                    <button class="submit" (click)="login()">
+                        <div class="loader" *ngIf="loader">
+                            <div class="justify-content-center jimu-primary-loading"></div>
+                          </div>
+                        Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>

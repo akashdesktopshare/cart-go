@@ -1,0 +1,184 @@
+
+<app-product-description-modal *ngIf="showProductDetailModal" [productConfig]="productConfig" (emitToParent)="receiveChildEvent($event)"></app-product-description-modal>
+
+<ng-container [ngSwitch]="activeCardContainer">
+
+    <div class="container-fluid" *ngSwitchCase="'category'">
+        <div class="row justify-content-center bg-light" *ngIf="!loader && inputConfig.data?.length>0">
+            <div class="col-md-12">
+                <div class="card-container container-fluid">
+                    <div class="row justify-content-start px-4">
+
+                        <ng-container *ngFor="let item of inputConfig.data;let idx=index;">
+                            <div class="card cards-cat m-4">
+                                <div class="img">
+                                    <img class="d-block mx-auto my-4" width="200" height="180"
+                                        [src]="inputConfig.baseImgPath+item.image" alt="Card image cap">
+                                </div>
+                                <hr class="hr">
+                                <div class="card-body">
+                                    <a href="javascript:void(0);" (click)="showProductDetail(item,inputConfig.baseImgPath,'Category')">
+                                        <h5 class="card-title">{{item.name|titlecase}}</h5>
+                                    </a>
+                                    <span class="card-text d-flex text-truncate">{{item.description}}</span>
+                                    <!-- <div class="form-check form-switch mt-3">
+                            <input class="form-check-input" type="checkbox" [checked]="item.is_active == '1' ? true : false" (change)="changeProductStatus(item,item.is_active)" role="switch" id="switch-{{idx}}">
+                        </div> -->
+                                    <div class="d-flex justify-content-between align-items-center mt-3">
+                                        <a href="javascript:void(0)" (click)="navigateSubCat(item.id)"><button
+                                                class="sub-cat-btn btn btn-sm">Sub-Category</button></a>
+                                        <a href="javascript:void(0);" (click)="openEditCategoryModal(item)"><button
+                                                class="btn btn-sm btn-light px-4"><img
+                                                    src="../../../assets/images/edit.svg" alt=""></button></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                        <hr class="my-4">
+                        <div class="pt-5 text-end">
+                            <button (click)="scrollTop()" class="btn btn-light btn-sm me-2"> <img
+                                    src="../../../../assets/images/up-arow.svg" width="20" height="20" alt=""> </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid" *ngSwitchCase="'vendor-products'">
+        <div class="row justify-content-center bg-light" *ngIf="inputConfig.data?.length>0">
+            <div class="col-md-12">
+                <div class="card-container container-fluid">
+                    <div class="row justify-content-start px-4">
+
+                        <ng-container *ngFor="let item of inputConfig.data;let idx=index;">
+                            <div class="card cards-cat m-4">
+                                <div class="img">
+                                    <img class="d-block mx-auto my-4" width="200" height="180"
+                                        [src]="inputConfig.baseImgPath+item.image" alt="Card image cap">
+                                </div>
+                                <hr class="hr">
+                                <div class="card-body">
+                                    <div class="card-text mb-3">
+                                        <img src="../../../assets/images/star-fill.svg" class="me-3" width="18"
+                                            height="16" alt="">
+                                        <img src="../../../assets/images/star-fill.svg" class="me-3" width="18"
+                                            height="16" alt="">
+                                        <img src="../../../assets/images/star-fill.svg" class="me-3" width="18"
+                                            height="16" alt="">
+                                        <img src="../../../assets/images/star-fill.svg" class="me-3" width="18"
+                                            height="16" alt="">
+                                        <!-- {{singleProduct.rating}} -->
+                                    </div>
+                                    <a href="javascript:void(0);" (click)="showProductDetail(item,inputConfig.baseImgPath,'Product')">
+                                        <h5 class="card-title">{{item.name|titlecase}}</h5>
+                                    </a>
+                                    <span class="card-text d-flex text-truncate">{{item.description}}</span>
+                                    <span class="card-text h5"> <del>${{item.price}}</del>
+                                        <strong> ${{item.price-item.discount_id}}</strong> </span>
+                                    <div class="form-check d-flex justify-content-between form-switch mt-3">
+                                        <input class="form-check-input" type="checkbox"
+                                            [checked]="item.is_active == '1' ? true : false"
+                                            (change)="changeProductStatus(item,item.is_active)" role="switch"
+                                            id="switch-{{idx}}">
+                                            <a href="javascript:void(0);" (click)="openEditCategoryModal(item)"><button
+                                                class="btn btn-sm btn-light px-4"><img
+                                                    src="../../../assets/images/edit.svg" alt=""></button></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                        <hr class="my-4">
+                        <div class="pt-5 text-end">
+                            <button (click)="scrollTop()" class="btn btn-light btn-sm me-2"> <img
+                                    src="../../../../assets/images/up-arow.svg" width="20" height="20" alt=""> </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid" *ngSwitchCase="'hot-category'">
+        <div class="row justify-content-center bg-light" *ngIf="!loader && inputConfig.data?.length>0">
+            <div class="col-md-12">
+                <div class="card-container container-fluid">
+                    <div class="row justify-content-start px-4">
+
+                        <ng-container *ngFor="let item of inputConfig.data;let idx=index;">
+                            <div class="card cards-cat m-4">
+                                <div class="img">
+                                    <img class="d-block mx-auto my-4" width="200" height="180"
+                                        [src]="inputConfig.baseImgPath+item.image" alt="Card image cap">
+                                </div>
+                                <hr class="hr">
+                                <div class="card-body">
+                                    <a href="javascript:void(0);" (click)="showProductDetail(item,inputConfig.baseImgPath,'Category')">
+                                        <h5 class="card-title">{{item.name|titlecase}}</h5>
+                                    </a>
+                                    <span class="card-text d-flex text-truncate">{{item.description}}</span>
+                                    <div class="remove-product-hot mt-3">
+                                        <img src="../../../assets//images/trash.svg" (click)="removeCatFromHot(item)" title="Remove Category" width="25" height="25" alt="">
+                                    </div>
+                                    <!-- <div class="form-check form-switch mt-3">
+                                      <input class="form-check-input" type="checkbox" [checked]="item.is_active == '1' ? true : false" (click)="updateHotCatStatus(item.id,item.is_active)" role="switch" id="switch-{{idx}}">
+                                    </div> -->
+                                    <!-- <div class="d-flex justify-content-between align-items-center mt-3">
+                                        <a href="javascript:void(0)" (click)="navigateSubCat(item.id)"><button
+                                                class="sub-cat-btn btn btn-sm">Sub-Category</button></a>
+                                        <a href="javascript:void(0);" (click)="openEditCategoryModal(item)"><button
+                                                class="btn btn-sm btn-light px-4"><img
+                                                    src="../../../assets/images/edit.svg" alt=""></button></a>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </ng-container>
+                        <hr class="my-4">
+                        <div class="pt-5 text-end">
+                            <button (click)="scrollTop()" class="btn btn-light btn-sm me-2"> <img
+                                    src="../../../../assets/images/up-arow.svg" width="20" height="20" alt=""> </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid" *ngSwitchCase="'sub-category'">
+        <div class="row justify-content-center bg-light" *ngIf="!loader && inputConfig.data?.length>0">
+            <div class="col-md-12">
+                <div class="card-container container-fluid">
+                    <div class="row justify-content-start px-4">
+
+                        <ng-container *ngFor="let item of inputConfig.data;let idx=index;">
+                            <div class="card cards-cat m-4">
+                                <div class="img">
+                                    <img class="d-block mx-auto my-4" width="200" height="180"
+                                        [src]="inputConfig.baseImgPath+item.image" alt="Card image cap">
+                                </div>
+                                <hr class="hr">
+                                <div class="card-body">
+                                    <a href="javascript:void(0);" (click)="showProductDetail(item,inputConfig.baseImgPath,'Sub-Category')">
+                                        <h5 class="card-title">{{item.name|titlecase}}</h5>
+                                    </a>
+                                    <span class="card-text d-flex text-truncate">{{item.description}}</span>
+                                    <div class="d-flex justify-content-between align-items-center mt-3">
+                                        <a href="javascript:void(0);" (click)="openEditCategoryModal(item)"><button
+                                                class="btn btn-sm btn-light px-4"><img
+                                                    src="../../../assets/images/edit.svg" alt=""></button></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                        <hr class="my-4">
+                        <div class="pt-5 text-end">
+                            <button (click)="scrollTop()" class="btn btn-light btn-sm me-2"> <img
+                                    src="../../../../assets/images/up-arow.svg" width="20" height="20" alt=""> </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</ng-container>

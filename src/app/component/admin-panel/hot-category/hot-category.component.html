@@ -1,0 +1,61 @@
+<div class="container-fluid">
+    <div class="row p-3 bg-light align-items-center">
+        <div class="col-sm-6  ps-3 h3 ">Hot Category</div>
+        <div class="col-sm-6 text-end pe-3">
+            <button class="btn btn-success rounded-0" id="myBtn" (click)="showModal=true;isHotListLimitReached();">Add Category To Hot List</button>
+            </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-sm-4 ps-4">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb ps-2">
+                  <li class="breadcrumb-item">Admin</li>
+                  <li class="breadcrumb-item active" aria-current="page">Hot Category</li>
+                </ol>
+              </nav>
+        </div>
+    </div>
+
+        <!-- Add Category to HotList modal -->
+
+        <div id="myModal" class="modal" *ngIf="showModal">
+
+            <div class="modal-content" >
+              <span class="close" (click)="showModal=false;newCategoryObj={}">&times;</span>
+              <h3>{{changeStatus ? 'Remove' : 'Add'}} Category {{changeStatus ? 'From' : 'To'}} Hot List</h3>
+              <strong class="text-danger">{{errorMessage}}</strong>
+              <div class="input-box">
+                <div class="form-group d-flex flex-column mt-3">
+                    <label for="categoryName">Category Name</label>
+                    <select class="form-control" (change)="selectCategory($event)" >
+                        <option selected="true" hidden="true">Select A Category</option>
+                        <option *ngFor="let catItem of allCategories" value="{{catItem.id}}|{{catItem.is_hot}}">{{catItem.name}}</option>
+                    </select>
+                </div>
+              </div>
+                <div class="mt-3 text-center">
+                   <button class="btn btn-success" (click)="addCategoryToHotList()" [disabled]="!newCategoryObj['category_id'] || (!changeStatus && isLimitReached) " >{{changeStatus ? 'Remove' :'Add'}}</button>
+                </div>
+              </div>
+            </div>
+    </div>
+
+      <div class="loader" *ngIf="loader && hotCategoryList?.length==0">
+        <div class="justify-content-center jimu-primary-loading"></div>
+      </div>
+
+
+<common-product-card [inputConfig]="{'data':hotCategoryList?.categories,'baseImgPath':basePath}" [activeCardContainer]="activeCardContainer" (emitToParent)="receieveChildEvent($event)"></common-product-card>
+
+
+<ng-container *ngIf="!loader && hotCategoryList?.categories?.length==0">
+    <div class="container-fluid">
+        <div class="row m-2 justify-content-center">
+            <div class="col-sm-6">
+                <div class="display-6">
+                  Add Categories To Hotlist !.
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>

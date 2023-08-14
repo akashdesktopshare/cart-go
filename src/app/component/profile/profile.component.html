@@ -1,0 +1,43 @@
+<div class="container profile-container">
+    <div class="row mx-5">
+            <div class="container m-3">
+                <div class="row mx-5">
+                    <div class="col-sm-3">
+                       <div class="bg-light">
+                        <div class="row">
+                            <div class="col-sm-5 p-2">
+                                <img [src]="baseImgPath+userData.user.image" class="d-block mx-auto rounded-circle" width="60" height="60"  alt="">
+                            </div>
+                            <div class="col-sm-7 p-2 d-flex flex-column">
+                                <small>Hello, </small> 
+                                 <h6>Ayush</h6> 
+                            </div>
+                        </div>
+                       </div>
+                       <div class="my-3">
+                        <div class="bg-light p-3">
+                            <ul class="ul list-unstyled">
+                                <li class="side-item">
+                                    <a href="javascript:void(0);" [routerLink]="['my-profile']">My Profile</a>
+                                </li>
+                                <li class="side-item">
+                                    <a href="javascript:void(0);" [routerLink]="['my-orders']">My Orders</a>
+                                </li>
+                                <li class="side-item">
+                                    <a href="javascript:void(0);" [routerLink]="['/wishlist']">My Wishlist</a>
+                                </li>
+                            </ul>
+                        </div>
+                       </div>
+                    </div>
+                    <div class="col-sm-9 bg-light">
+                       <div class="row p-3">
+                        <div class="col-sm-12">
+                            <router-outlet></router-outlet>
+                        </div>
+                       </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>

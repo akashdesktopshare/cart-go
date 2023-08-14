@@ -1,0 +1,169 @@
+<nav class="navbar sticky-top navbar-expand-lg">
+    <div class="container-fluid header">
+        <a class="" href="javascript:void(0);" routerLink="/">
+            <img src="../../assets/bag.png" alt="" width="65" height="60">
+          </a>
+          <a class="nav-link home-link" routerLink="/">Go <span style="color: #ffc107;">Cart</span></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+        <ul class="navbar-nav mb-2 mb-lg-0" style="align-items: baseline;">
+            <form class="d-flex align-items-center me-5" role="search">
+                <input class="form-control me-3 search-bar" list="search" type="search" placeholder="Search Products" aria-label="Search">
+                <img src="../../assets/images/search.svg" width="23" height="23" alt="">
+                <datalist id="search">
+                <option [value]="catItem.name" *ngFor="let catItem of categoryList">{{catItem.name}}</option>
+                </datalist>
+            </form>
+            <li class="nav-item" *ngIf="!isLoggedIn">
+                <a class="nav-link" href="javascript:void(0);" (click)="showModal=true;showActiveForm['login']=true;">
+                  <button class="btn btn-danger rounded-0">Login</button>
+                </a>
+            </li>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page"  href="javascript:void(0);" routerLink="/wishlist">
+              <img src="../../assets/images/fav.svg" width="20" height="20" alt="">
+              Wishlist</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="javascript:void(0);" routerLink="/cart">
+              <img src="../../assets/images/cart.svg" width="21" height="21" alt="">
+              Cart ({{cartItems}})</a>
+          </li>
+          <li class="nav-item ms-2">
+            <a class="nav-link" href="javascript:void(0);" class="nav-link no-css-drop" (click)="toggleMenu()">
+              <img [src]="isLoggedIn ?  user_base_path+loggedInUserDetails.image : './../assets/images/profile.svg' " width="23" height="23" alt="">
+              Profile
+            </a>
+            <ng-container *ngIf="isLoggedIn">
+            <div class="dropdownMenu no-css-drop" [ngClass]="{'shiftRight':isLoggedIn}" *ngIf="toggleDropdown"> 
+                <a href="javascript:void(0);" [routerLink]="['myprofile']"> My Profile</a>
+                <a href="javascript:void(0);" (click)="logout()">Log Out</a>
+              </div>
+            </ng-container>
+          </li>
+        </ul>
+    
+      </div>
+    </div>
+  </nav>
+
+
+  <div class="container-fluid all-Cat navbar-collapse justify-content-center">
+  	<div class="row align-items-baseline" style="padding: 0px 70px;">
+      <div class="col-sm-3">
+        <div class="dropdown all-cat-btn">
+            <button (click)="showCategoryDrpdown=!showCategoryDrpdown" class="btn btn-warning dropdown-toggle rounded-pill" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              All Category
+            </button>
+            <ul class="dropdown-menu multi-level" (mouseleave)="showCategoryDrpdown=false;" *ngIf="showCategoryDrpdown" role="menu">
+              <ng-container *ngFor="let catItem of categoryList">
+                <li class="dropdown-submenu border-bottom">
+                  <div class="d-flex align-items-center ps-2">
+                    <img [src]="product_img_path+catItem.image" class="ms-2" width="30" height="30" alt="">
+                    <a  class="dropdown-item" tabindex="-1" href="javascript:void(0);">{{catItem.name|titlecase}}</a>
+                  </div>
+                  <ul class="dropdown-menu"*ngIf="catItem.sub_category.length>0" >
+                  <ng-container *ngFor="let subCatItem of catItem.sub_category">
+                      <li class="dropdown-item border-bottom" >
+                        <div class="d-flex align-items-center">
+                          <img [src]="product_img_path+subCatItem.image" class="ms-2" width="30" height="30" alt="">
+                          <a  class="dropdown-item" tabindex="-1" href="javascript:void(0);">{{subCatItem.name|titlecase}}</a>
+                        </div>
+                        </li>
+                    </ng-container>
+                  </ul>
+                </li>
+              </ng-container>
+
+              </ul>
+        </div>
+      </div>
+        <div class="col-sm-5">
+            <ul class="category-item d-flex justify-content-around">
+              <li>Shop</li>
+              <li>Brands</li>
+              <li>Hello</li>
+              <li>Bye</li>
+            </ul>
+        </div>
+        <div class="col-sm-4 text-end">
+          <div class="vendorBtn">
+            <button class="btn btn-warning btn-lg" (click)="showModal=true;showActiveForm['becomeVendor']=true;">Become a Vendor</button>
+          </div>
+        </div>
+    </div>
+</div>
+
+ <!-- Login/Signup Modal -->
+
+ <div id="myModal" class="modal" *ngIf="showModal">
+
+  <div class="modal-content rounded-0" [ngClass]="{'opacityLow':loader}">
+      <span class="close" (click)="closeModal()">&times;</span>
+      <div class="container">
+        <div class="form">
+          <ng-container *ngIf="showActiveForm['register']">
+           <app-signup (emitToParent)="receieveChildEvent($event)" ></app-signup>
+          </ng-container>
+          <ng-container *ngIf="showActiveForm['login']">
+            <p class="login-title">Login </p>
+            <p class="message">Login to scroll.</p>
+          
+            <label>
+              <input required=""  type="email" class="input" [(ngModel)]="loginDetails['email']" autocomplete="off">
+              <span>Email</span>
+            </label>
+          
+            <label>
+              <input required="" type="password" [(ngModel)]="loginDetails['password']" class="input">
+              <span>Password</span>
+            </label>
+            <strong class="text-danger">{{errorMessage}}</strong>
+            <button class="submit" [disabled]="!loginDetails['email'] || !loginDetails['password']" (click)="login()">
+              <div class="loader" *ngIf="loader">
+                <div class="justify-content-center jimu-primary-loading"></div>
+              </div> Submit
+            </button>
+            <p class="signin">Don't Have An Account ? <a href="javascript:void(0);" (click)="showActiveForm['login']=false;showActiveForm['register']=true">SignUp</a> </p>
+          </ng-container>
+          <ng-container *ngIf="showActiveForm['becomeVendor']">
+            <p class="login-title">Become a Vendor </p>
+            <p class="message">Join with us to sell your products</p>
+          
+            <label>
+              <input required=""  type="text" class="input" [(ngModel)]="vendorSignUpDetails['name']" autocomplete="off">
+              <span>Name</span>
+            </label>
+            <label>
+              <input required="" type="text" [(ngModel)]="vendorSignUpDetails['phone']" class="input">
+              <span>Phone Number</span>
+            </label>
+            <label>
+              <input required="" type="text" [(ngModel)]="vendorSignUpDetails['email']" class="input">
+              <span>Email</span>
+            </label>
+            <label>
+              <input required="" type="text" [(ngModel)]="vendorSignUpDetails['message']" class="input">
+              <span>Message</span>
+            </label>
+            <button class="submit"  (click)="becomeVendorRequest()">
+              <div class="loader" *ngIf="loader">
+                <div class="justify-content-center jimu-primary-loading"></div>
+              </div> Submit
+            </button>
+          </ng-container>
+          <ng-container *ngIf="showActiveForm['vendorRequestSent']">
+              <h1>Your Request Has Been Sent Successfully!.</h1>
+          </ng-container>
+      </div>
+
+    </div>
+
+</div>
+
+</div>
+
+<!-- End Modal -->
+

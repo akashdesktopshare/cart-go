@@ -1,0 +1,55 @@
+<div class="loader" *ngIf="loader">
+    <div class="justify-content-center jimu-primary-loading"></div>
+  </div>
+
+<div class="container-fluid">
+    <div class="row p-3 bg-light align-items-center">
+        <div class="col-sm-6  ps-3 h3 ">Users</div>
+        <div class="col-sm-6 text-end pe-3"></div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-sm-4 ps-4">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb ps-2">
+                  <li class="breadcrumb-item">Admin</li>
+                  <li class="breadcrumb-item active" aria-current="page">Users</li>
+                </ol>
+              </nav>
+        </div>
+    </div>
+    <div class="row mt-3"*ngIf="!loader">
+        <div class="col-sm-12">
+            <table class="table border-top">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Number</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody class="align-baseline">
+                    <tr *ngFor="let item of userList;let idx=index;">
+                        <td class="p-3">{{item.user_id}}</td>
+                        <td class="p-3"> <img [src]="basePath+item.image" width="30" class="rounded-circle mx-2" height="30" alt=""> <a href="javascript:void(0);">{{item.first_name|titlecase}} {{item.last_name|titlecase}} </a> </td>
+                        <td class="p-3">{{item.email}}</td>
+                        <td class="p-3">{{item.mobile}}</td>
+                        <td class="p-3" *ngIf="item.status == '1' ">
+                            <button class="btn btn-light btn-sm" (click)="toggleDropdown(idx)"><img src="../../../../assets/images/three-dots.svg" alt="">
+                                <div class="dropdown" *ngIf="item['showDropDown']">
+                                    <div class="dropdown-menu edit-dropdown d-block" aria-labelledby="dropdownMenuButton">
+                                      <a class="dropdown-item" href="javascript:void(0);">Change Status</a>
+                                      <a class="dropdown-item" href="javascript:void(0);">Edit User</a>
+                                    </div>
+                                  </div>
+                            </button>
+                    </td>
+                        <td class="p-3" *ngIf="item.status == '0' "><button class="btn btn-light btn-sm"><img src="../../../../assets/images/edit.svg" alt=""></button></td>
+                        
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

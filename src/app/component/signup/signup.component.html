@@ -1,0 +1,80 @@
+<div [formGroup]="signUpModal">
+    <p class="login-title">Register </p>
+    <p class="message">Signup now and get full access to our app. </p>
+    <div class="flex mb-2">
+        <label>
+            <input required="" placeholder="" type="text" formControlName="first_name" class="input">
+            <span>Firstname</span>
+        </label>
+
+        <label>
+            <input required="" placeholder="" type="text" formControlName="last_name" class="input">
+            <span>Lastname</span>
+        </label>
+    </div>
+
+    <label>
+        <input required="" placeholder="" type="email" formControlName="email" class="input mb-2" autocomplete="off">
+        <span>Email</span>
+    </label>
+
+    <label>
+        <input required="" placeholder="" type="password" formControlName="password" class="input mb-2">
+        <span>Password</span>
+    </label>
+    <!-- <div class="flex">
+        <label>
+            <input required="" placeholder="" type="text" formControlName="country_code" class="input">
+            <span>Country Code</span>
+        </label>
+        <label>
+            <input required="" placeholder="" type="text" formControlName="mobile" class="input">
+            <span>Mobile</span>
+        </label>
+    </div>
+    <div class="flex">
+        <label>
+            <select required="" formControlName="gender" class="input">
+                <option selected="true" hidden="true">Select Gender</option>
+                <option value="1">Male</option>
+                <option value="2">Female</option>
+            </select>
+            <span>Gender</span>
+        </label>
+        <label>
+            <input required="" placeholder="" type="text" formControlName="age" class="input">
+            <span>Age</span>
+        </label>
+    </div>
+
+    <label>
+        <input required="" placeholder="" type="text" formControlName="address" class="input">
+        <span>Address</span>
+    </label>
+    <div class="flex">
+        <label>
+            <input required="" placeholder="" type="text" formControlName="city" class="input">
+            <span>City</span>
+        </label>
+        <label>
+            <input required="" placeholder="" type="text" formControlName="state" class="input">
+            <span>State</span>
+        </label>
+        <label>
+            <input required="" placeholder="" type="text" formControlName="country" class="input">
+            <span>Country</span>
+        </label>
+    </div>
+    <label>
+        <input required="" placeholder="" type="text" formControlName="postal_code" class="input">
+        <span>Postal Code</span>
+    </label> -->
+    <label for="files" class="no-css-input-file mb-2">
+        <input required="" id="files" type="file" formControlName="image" (change)="selectProfileImage($event)"
+            class="input" style="visibility:hidden;">
+        <span>Choose Profile Image</span>
+    </label>
+    <button class="submit mb-2" (click)="register()">Submit</button>
+    <p class="signin">Already have an acount ? <a href="javascript:void(0);"
+            (click)="toggleForm()">Login</a> </p>
+</div>

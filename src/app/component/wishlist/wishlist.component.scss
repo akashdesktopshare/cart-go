@@ -1,0 +1,26 @@
+.wishlist-container{
+    position: relative;
+    min-height: 100vh;
+}
+
+.card-container .card {
+    position: relative;
+    width: 20rem;
+    padding: 20px 20px;
+    border: none;
+    border-radius: 0px;
+    box-shadow: 0 4px 24px 0 rgba(34, 41, 47, 0.1);
+    transition: all 0.3s ease-in-out;
+
+    a.btn-sm:first-child{
+        border: none;
+        color: var(--white);
+        background-color: var(--blue);
+      }
+}
+
+.card-container .card:hover{
+    border-radius: 5px;
+    transform: translateY(-5px);
+    box-shadow: 0 4px 25px 0 rgba(34, 41, 47, 0.25);
+}

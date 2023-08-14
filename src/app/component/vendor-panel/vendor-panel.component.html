@@ -1,0 +1,112 @@
+<ng-container *ngIf="isVendorLoggedIn">
+    <div class="container-fluid">
+        <div class="row ">
+            <div class="col-sm-2 p-3 brand-container">
+                   <a class="nav-link home-link" href="/" (click)="logout();">
+                <img src="../../assets/bag.png" alt="" width="65" height="60">
+                Go Cart
+            </a>
+            </div>
+            <div class="col-sm-10 text-end p-3">
+                <div class="h3 me-3" id="navbarSupportedContent" [title]="loggedInUserDetails.email">
+                    <!-- <div class="bell-img d-inline-block me-4">
+                        <img src="../../../assets/images/bell.svg" width="25" height="28" alt="">
+                    </div> -->
+                      <div class="profile-img d-inline-block">
+                          <img [src]="baseImgPath+loggedInUserDetails.image" class="rounded-circle" width="52" height="54" alt="">
+                      </div>
+                    {{loggedInUserDetails.first_name|titlecase}} {{loggedInUserDetails.last_name|titlecase}}
+                    <div class="h5"><small>Vendor, Admin</small></div>
+            </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid list-category">
+        <div class="row flex-nowrap">
+            <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 section-background">
+                <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                    <a href="javascript:void(0);" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                        <span class="fs-5 d-none d-sm-inline"></span>
+                    </a>
+                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                        <li class="nav-item h6 w-100">
+                            <a href="javascript:void(0);" routerLink="dashboard" class="nav-link px-0" routerLinkActive="active-tab" #rla="routerLinkActive" >
+                              <img src="../../../assets/images/dashboard.svg" width="20" height="20" class="ms-3" alt=""> <span class="ms-1 d-none d-sm-inline pe-3">Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="nav-item h6 w-100">
+                            <a href="javascript:void(0);" routerLink="orders" class="nav-link px-0" routerLinkActive="active-tab" #rla="routerLinkActive" >
+                              <img src="../../../assets/images/dashboard.svg" width="20" height="20" class="ms-3" alt=""> <span class="ms-1 d-none d-sm-inline pe-3">Orders</span>
+                            </a>
+                        </li>
+                        <li class="nav-item h6 w-100">
+                            <a href="javascript:void(0);" routerLink="products" class="nav-link px-0" routerLinkActive="active-tab" #rla="routerLinkActive" >
+                              <img src="../../../assets/images/dashboard.svg" width="20" height="20" class="ms-3" alt=""> <span class="ms-1 d-none d-sm-inline pe-3">Products</span>
+                            </a>
+                        </li>
+                        <li class="nav-item h6 w-100">
+                            <a href="javascript:void(0);" routerLink="earnings" class="nav-link px-0" routerLinkActive="active-tab" #rla="routerLinkActive" >
+                              <img src="../../../assets/images/dashboard.svg" width="20" height="20" class="ms-3" alt=""> <span class="ms-1 d-none d-sm-inline pe-3">Earnings</span>
+                            </a>
+                        </li>
+                        <li class="nav-item h6 w-100">
+                            <a href="javascript:void(0);" routerLink="support" class="nav-link px-0" routerLinkActive="active-tab" #rla="routerLinkActive">
+                              <img src="../../../assets/images/dashboard.svg" width="20" height="20" class="ms-3" alt=""> <span class="ms-1 d-none d-sm-inline pe-3">Support</span>
+                            </a>
+                        </li>
+                        <li class="nav-item h6 w-100">
+                            <a href="javascript:void(0);" class="nav-link px-0" routerLinkActive="active-tab" #rla="routerLinkActive" >
+                              <img src="../../../assets/images/service-provider.svg" width="20" height="20" class="ms-3" alt=""> 
+                              <span class="ms-1 d-none d-sm-inline pe-3" (click)="logout()">LogOut</span>
+                            </a>
+                        </li>
+                        <!-- <li>
+                            <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                                <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">New Arrival Category</span>
+                            </a>
+                            <ul class="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
+                                <li class="w-100">
+                                    <a href="javascript:void(0);" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 1 </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 2 </a>
+                                </li>
+                            </ul>
+                        </li> -->
+                    </ul>
+                    <hr>
+                </div>
+            </div>
+            <div class="col">
+               <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+    </ng-container>
+    <ng-container *ngIf="!isVendorLoggedIn">
+        <div class="container-fluid pt-5" style="background-color: whitesmoke;">
+            <div class="row mt-5 justify-content-center align-items-center align-content-center">
+                <div class="col-sm-3 m-5">
+                    <div class="form">
+                        <p class="title">Vendor Login </p>
+                        <p class="message">Login to Vendor Dashboard. </p>
+                        <label>
+                            <input required="" name="email" placeholder="" [value]="credentials['email']" [(ngModel)]="credentials['email']" type="email" class="input">
+                            <span>Email</span>
+                        </label> 
+                            
+                        <label>
+                            <input required="" name="password" placeholder="" [value]="credentials['password']" [(ngModel)]="credentials['password']" type="password" class="input">
+                            <span>Password</span>
+                        </label>
+                        <strong class="text-danger">{{errorMessage}}</strong>
+                        <button class="submit" (click)="login()">
+                            <div class="loader" *ngIf="loader">
+                                <div class="justify-content-center jimu-primary-loading"></div>
+                              </div>
+                            Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>

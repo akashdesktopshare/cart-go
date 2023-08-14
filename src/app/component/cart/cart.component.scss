@@ -1,0 +1,18 @@
+.cart-container{
+    position: relative;
+    min-height: 100vh;
+}
+
+.deleteItem{
+    cursor: pointer;
+
+}
+.deleteItem:hover{
+    width: 21px;
+    height: 21px;
+}
+
+.minus-item.disabled{
+    pointer-events: none;
+    border: none !important;
+}

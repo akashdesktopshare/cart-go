@@ -1,0 +1,175 @@
+<div class="container-fluid">
+    <div class="row p-3 bg-light align-items-center">
+        <div class="col-sm-6  ps-3 h3 ">Vendors</div>
+        <div class="col-sm-6 text-end pe-3">
+            <button class="btn btn-success btn-sm rounded-0" (click)="showModal['newVendor']=true;">Add New Vendor</button>
+            <a class="btn btn-danger mx-3 rounded-0" [routerLink]="['/admin/pending-request']">
+                <img src="../../../../assets/images/pending.svg" alt="" style="filter: invert(1);">
+            </a>
+            </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-sm-4 ps-4">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb ps-2">
+                  <li class="breadcrumb-item">Admin</li>
+                  <li class="breadcrumb-item active" aria-current="page">Vendors</li>
+                </ol>
+              </nav>
+        </div>
+    </div>
+     <!-- Add New Vendor Modal -->
+
+    <div id="myModal" class="modal" *ngIf="showModal['newVendor']">
+    
+        <div class="modal-content">
+           <div  class="title d-flex justify-content-between align-items-center"><h3>Register New Vendor!</h3><span class="close" (click)="showModal['newVendor']=false;">&times;</span></div> 
+            <div class="row m-2" [formGroup]="newVendorDetails">
+                    <div class="col-sm-3">
+                        <div class="form-group mb-3">
+                            <label for="">Name</label>
+                            <input type="text" formControlName="name"  class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group mb-3">
+                            <label for="">Contact Number</label>
+                            <input type="text" formControlName="contactNumber" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group mb-3">
+                            <label for="">Email</label>
+                            <input type="email" formControlName="email" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group mb-3">
+                            <label for="">Profile Image</label>
+                            <input type="file" formControlName="profileImg" (change)="uploadProfileImg($event)" class="form-control">
+                        </div>
+                    </div>
+            </div>
+            <div class="row m-2" [formGroup]="newVendorDetails">
+                    <div class="col-sm-3">
+                        <div class="form-group mb-3">
+                            <label for="">Reference Contact Number One</label>
+                            <input type="text" formControlName="refContactNumberOne"  class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group mb-3">
+                            <label for="">Reference Contact Number Two</label>
+                            <input type="text" formControlName="refContactNumberTwo"  class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group mb-3">
+                            <label for="">Address</label>
+                            <input type="text" formControlName="address"  class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group mb-3">
+                            <label for="">Brand Image</label>
+                            <input type="file" formControlName="brandImg" class="form-control">
+                        </div>
+                    </div>
+            </div>
+            <div class="row m-2" [formGroup]="newVendorDetails">
+                    <div class="col-sm-3">
+                        <div class="form-group mb-3">
+                            <label for="">Aadhaar Card (Front & Back)</label>
+                            <input type="file" formControlName="aadhaarImage" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group mb-3">
+                            <label for="">Pan Card</label>
+                            <input type="file" formControlName="panCardImage" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group mb-3">
+                            <label for="">Bank Name</label>
+                            <input type="text" formControlName="bankName" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group mb-3">
+                            <label for="">Logo Image</label>
+                            <input type="file" formControlName="logoImg" class="form-control">
+                        </div>
+                    </div>
+            </div>
+            <div class="row m-2" [formGroup]="newVendorDetails">
+                    <div class="col-sm-3">
+                        <div class="form-group mb-3">
+                            <label for="">IFSC Code</label>
+                            <input type="text" formControlName="ifscCode" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group mb-3">
+                            <label for="">Account Number</label>
+                            <input type="text" formControlName="accountNumber" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group mb-3">
+                            <label for="">Beneficiary Name</label>
+                            <input type="text" formControlName="beneficiaryName" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group mb-3">
+                            <label for="">Password</label>
+                            <input type="text" formControlName="password" class="form-control">
+                        </div>
+                    </div>
+            </div>
+            <div class="row m-2 align-items-center text-center" [formGroup]="newVendorDetails">
+                    <div class="col-sm-12">
+                       <button class="btn px-4  btn-success" (click)="addNewVendor()" [disabled]="newVendorDetails.invalid">Add</button>
+                    </div>
+                    <!-- <div class="col-sm-4"></div> -->
+            </div>
+        </div>
+    </div>
+      
+    <!-- End Modal -->
+    <div class="loader" *ngIf="loader">
+        <div class="justify-content-center jimu-primary-loading"></div>
+      </div>
+    <div class="row" *ngIf="!loader">
+        <div class="col-sm-12">
+            <table class="table border-top">
+                <thead>
+                    <tr>
+                        <th>User ID</th>
+                        <th>Vendor Name</th>
+                        <th>Contact Number</th>
+                        <th>Total Service Completed</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody style="vertical-align: middle;">
+                    <tr *ngFor="let data of vendorList.user;let idx=index;">
+                        <td class="p-3">{{data.user_id}}</td>
+                        <td class="p-3"><img [src]="profileUrl+data.image" class="rounded-circle mx-2" width="30" height="30" [alt]="data.first_name"> {{data.first_name|titlecase}} {{data.last_name|titlecase}}</td>
+                        <td class="p-3">{{data.mobile}}</td>
+                        <td class="p-3">-</td>
+                         <td class="p-3">
+                            <div class="form-check form-switch mt-3">
+                                <input class="form-check-input" type="checkbox"
+                                    [checked]="data.status == '1' ? true : false"
+                                    (change)="updateStatus(data.user_id,data.status)" role="switch"
+                                    id="switch-{{idx}}">
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

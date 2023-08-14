@@ -1,0 +1,251 @@
+
+.section-category{
+    padding: 50px 0px;
+}
+
+.section-category .title{
+    font-size: 30px;
+    font-variant: petite-caps;
+    font-weight: 600;
+    padding-left: 40px !important;
+}
+
+.section-new-arrival{
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.section-new-arrival .title{
+    font-size: 30px;
+    font-variant: petite-caps;
+    font-weight: 600;
+
+    .row {
+      background-color: var(--blue);
+      color: var(--white);
+
+      .col-sm-3 a{
+        color: var(--white);
+        opacity: 0.9;
+
+        &:hover{
+          opacity: 1;
+        }
+      }
+
+    }
+}
+
+#carouselExampleIndicators {
+    margin-top: 20px;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+.list-new-arrival .card-body{
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+
+    a.btn-sm{
+      border: none;
+      color: var(--white);
+      background-color: var(--blue);
+    }
+}
+
+.list-new-arrival .cards-cat{
+  transition: 0.3s all ease;
+  min-height: 33rem;
+}
+
+.list-new-arrival .cards-cat:hover {
+    transform: translateY(-5px);
+}
+
+.section-new-arrival .title .row .col-sm-11 {
+    padding-left: 130px;
+}
+
+.list-new-arrival .fav-product .no-css-empty-heart{
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.list-new-arrival .fav-product .no-css-filled-heart{
+  cursor: pointer;
+  margin-top: -11px;
+  margin-right: 3px;
+}
+
+.revealNewArrival {
+    position: relative;
+    transform: translateY(150px);
+    opacity: 0;
+    transition: 0.3s all ease;
+    width: 20rem;
+    padding: 20px 20px;
+    border: none;
+    border-radius:1.5rem;
+    box-shadow: 0 4px 24px 0 rgba(34, 41, 47, 0.1);
+
+}
+
+.revealNewArrival:hover{
+     border-radius: 5px;
+    transform: translateY(-5px);
+    box-shadow: 0 4px 25px 0 rgba(34, 41, 47, 0.25);
+}
+
+.revealNewArrival.active {
+    transform: translateY(0);
+    transition: 0.3s all ease;
+    opacity: 1;
+}
+
+.revealHotShot {
+    position: relative;
+    transform: translateX(150px);
+    opacity: 0;
+    transition: 1s all ease;
+}
+
+.revealHotShot.active {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.slider {
+    width: 90%;
+    height: 200px;
+    position: relative;
+    margin: auto;
+    overflow-x: scroll;
+    overflow-y: hidden;
+  }
+  
+  .slider::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .slider .slide {
+    display: flex;
+    position: absolute;
+    left: 0;
+    transition: 0.3s left ease-in-out;
+
+    img{
+        transition: 0.3s transform ease;
+    }
+
+    img:hover{
+        transform: scale(1.1);
+        cursor: pointer;
+    }
+  }
+  
+  .slider .item {
+    margin-right: 40px;
+  }
+  
+  .slider .item:last-child {
+    margin-right: 0;
+  }
+  
+  .ctrl {
+    text-align: center;
+    margin-top: 5px;
+  }
+  
+  .ctrl-btn {
+    padding: 20px 20px;
+    min-width: 50px;
+    background: #fff;
+    border: none;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+  
+    position: absolute;
+    top: 50%;
+    margin-top: -27.5px;
+  }
+  
+  .ctrl-btn.pro-prev {
+    left: 0;
+  }
+  
+  .ctrl-btn.pro-next {
+    right: 0;
+  }
+  
+// .card {
+//     width: 20rem;
+//     border-radius: 0px;
+//     padding: 20px 20px;
+//     box-shadow: 15px 15px 30px #bebebe,
+//                -15px -15px 30px #ffffff;
+//   }
+
+.container-slider {
+  display: flex;
+  align-items: center;
+  filter: drop-shadow(1px 1px 4px grey);
+  overflow: hidden;
+}
+
+.scroll-parent {
+  position: relative;
+  width: 100vw;
+  height: 20rem;
+  padding: 2rem 0;
+  overflow-x: hidden;
+}
+
+.scroll-element {
+  width: inherit;
+  height: inherit;
+  position: absolute;
+  left: 0%;
+  top: 0%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.scroll-element img {
+  width: 15%;
+  transition: 0.3s all ease;
+
+  &:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+  }
+}
+
+.primary {
+  animation: primary 15s linear infinite;
+}
+
+.secondary {
+  animation: secondary 15s linear infinite;
+}
+
+@keyframes primary {
+  from {
+    left: 0%;
+  }
+  to {
+    left: -100%;
+  }
+}
+
+@keyframes secondary {
+  from {
+    left: 100%;
+  }
+  to {
+    left: 0%;
+  }
+}

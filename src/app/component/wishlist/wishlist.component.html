@@ -1,0 +1,68 @@
+<div class="container-fluid wishlist-container mt-3">
+    <div class="row justify-content-center">
+        <div class="col-sm-12 mb-2" *ngIf="wishlistData?.length>0">
+            <div class="display-6 text-center">Find Your Favourite Items Here !</div>
+        </div>
+        <div class="col-sm-12 my-5" *ngIf="wishlistData?.length==0 && !loader">
+            <div class="display-1 text-center">Your Wishlist Is Empty !</div>
+        </div>
+    </div>
+    <div class="loader" *ngIf="loader">
+        <div class="justify-content-center jimu-primary-loading"></div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-sm-12">
+            <div class="card-container container-fluid">
+                <div class="row justify-content-start px-4">
+
+                <ng-container *ngFor="let item of wishlistData">
+                    <ng-container *ngIf="item?.product"> 
+
+                <div class=" card cards-cat m-4" *ngFor="let wishItem of item.product">
+                    <div class="img" >
+                        <img class="d-block mx-auto my-4" width="200" height="180" [src]="baseImgPath+wishItem.image" alt="Card image cap">
+                    </div>
+                    <hr class="hr">
+                    <div class="card-body">
+                        <span class="card-text">Rating - {{wishItem.itemRating}}</span>
+                        <a href="javascript:void(0);" [routerLink]="['/single-product',wishItem.id]">
+                            <h5 class="card-title">{{wishItem.name|titlecase}}</h5>
+                        </a>
+                        <span class="card-text d-flex text-truncate">{{wishItem.description}}</span>
+                        <span class="card-text"> <del>${{wishItem.price}}</del><strong>
+                                ${{wishItem.price-wishItem.discount_id}}</strong> </span>
+                        <div class="d-flex justify-content-around align-items-center mt-3">
+                            <a href="javascript:void(0);" class="btn btn-sm btn-warning px-3" (click)="addToCart(wishItem)">Add to Cart</a>
+                            <a href="javascript:void(0);" class="btn btn-sm btn-light" (click)="removeItem(wishItem)">Remove</a>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </ng-container>
+        <ng-container *ngIf="!wishlistData?.product">
+            <div class=" card cards-cat m-4" *ngFor="let wishItem of wishlistData">
+                <div class="img" >
+                    <img class="d-block mx-auto my-4" width="200" height="180" [src]="baseImgPath+wishItem.image" alt="Card image cap">
+                </div>
+                <hr class="hr">
+                <div class="card-body">
+                    <span class="card-text">Rating - {{wishItem.itemRating}}</span>
+                    <a href="javascript:void(0);" [routerLink]="['/single-product',wishItem.id]">
+                        <h5 class="card-title">{{wishItem.name|titlecase}}</h5>
+                    </a>
+                    <span class="card-text d-flex text-truncate">{{wishItem.description}}</span>
+                    <span class="card-text"> <del>${{wishItem.price}}</del><strong>
+                            ${{wishItem.price-wishItem.discount_id}}</strong> </span>
+                    <div class="d-flex justify-content-around align-items-center mt-3">
+                        <a href="javascript:void(0);" class="btn btn-sm btn-warning px-3" (click)="addToCart(wishItem)">Add to Cart</a>
+                        <a href="javascript:void(0);" class="btn btn-sm btn-light" (click)="removeItem(wishItem)">Remove</a>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+        </div>
+        </div>
+    </div>
+    </div>
+</div>

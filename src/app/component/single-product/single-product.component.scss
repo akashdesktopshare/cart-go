@@ -1,0 +1,50 @@
+.single-product-container{
+  position: relative;
+  min-height: 100vh;
+}
+
+figure.zoom {
+    & img:hover {
+      opacity: 0;
+    }
+    img {
+      transition: opacity .5s;
+      display: block;
+      width: 100%;
+    }
+    background-position: 50% 50%;
+    position: relative;
+    width: 500px;
+    overflow: hidden;
+    cursor: zoom-in;
+  }
+
+  .image-box #big-img{
+    mix-blend-mode: darken;
+    transition: 0.3s transform ease;
+    transform: scale(0.9);
+
+    &:hover{
+      transform: scale(1);
+      cursor: crosshair;
+    }
+  }
+
+  .multiple-product-image .multi-img{
+    cursor: pointer;
+  }
+
+  .multiple-product-image:hover > .multi-img:not(:hover){
+    opacity: 0.2;
+  }
+
+  .product-details .description,.product-details .card-title{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .product-details .add-to-cart a{
+    border: none;
+    color: var(--white);
+    background-color: var(--blue);
+  }
+  
