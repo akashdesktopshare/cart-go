@@ -55,7 +55,7 @@
                             <div class="card cards-cat m-4">
                                 <div class="img">
                                     <img class="d-block mx-auto my-4" width="200" height="180"
-                                        [src]="inputConfig.baseImgPath+item.image" alt="Card image cap">
+                                        [src]="inputConfig.baseImgPath+item.image[0]" alt="Card image cap">
                                 </div>
                                 <hr class="hr">
                                 <div class="card-body">
@@ -81,7 +81,7 @@
                                             [checked]="item.is_active == '1' ? true : false"
                                             (change)="changeProductStatus(item,item.is_active)" role="switch"
                                             id="switch-{{idx}}">
-                                            <a href="javascript:void(0);" (click)="openEditCategoryModal(item)"><button
+                                            <a href="javascript:void(0);"  (click)="navigateToEditProduct(item)"><button
                                                 class="btn btn-sm btn-light px-4"><img
                                                     src="../../../assets/images/edit.svg" alt=""></button></a>
                                     </div>

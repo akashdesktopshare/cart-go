@@ -128,6 +128,11 @@
 .dropdown-submenu {
     position: relative;
     display: block !important;
+
+    a.dropdown-item{
+        font-weight: 600;
+        font-size: 14px;
+    }
 }
 
 .dropdown-submenu>.dropdown-menu {

@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ProductsComponent } from './products.component';
+import { AttachFileComponent } from './attach-file.component';
 
 const routes: Routes = [
   {
     path:'',
-    component:ProductsComponent,
+    component:AttachFileComponent
   }
 ];
 
@@ -13,4 +13,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ProductsRoutingModule { }
+export class AttachFileRoutingModule { }

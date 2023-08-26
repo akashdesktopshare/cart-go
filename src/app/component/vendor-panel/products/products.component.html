@@ -1,8 +1,8 @@
 <div class="container-fluid ">
     <div class="row p-3 bg-light align-items-center">
         <div class="col-sm-6  ps-3 h3 ">Products</div>
-        <div class="col-sm-6 text-end pe-3"><button class="btn btn-success rounded-0 btn-sm"
-                (click)="showModal=true;getAllCatList();">Add New Product</button></div>
+        <div class="col-sm-6 text-end pe-3"><a class="btn btn-success rounded-0 btn-sm"
+               href="javascript:void(0);" [routerLink]="['add']" >Add New Product</a></div>
     </div>
     <div class="row mt-2">
         <div class="col-sm-4 ps-4">
@@ -14,114 +14,11 @@
               </nav>
         </div>
     </div>
-
-    <!-- Add Product Modal -->
-
-    <div id="myModal" class="modal" *ngIf="showModal && this.isVendorLogged">
-
-        <div class="modal-content">
-            <span class="close" (click)="showModal=false;subCategoryList=[];showAddProductConfig=false">&times;</span>
-            <h3>Add Product</h3>
-            <div class="input-box">
-                <div class="row mb-3" *ngIf="!isProdEdit" >
-                    <div class="col-sm-10">
-                        <select class="form-control" (change)="getSubCategoryById($event)">
-                            <ng-container *ngFor="let item of categoryList">
-                                <option selected="true" hidden="true">Select A Category</option>
-                                <option [value]="item.id">{{item.name}}</option>
-                            </ng-container>
-                        </select>
-                    </div>
-                    <div class="col-sm-2"></div>
-                </div>
-                <div class="row mb-3" *ngIf="this.subCategoryList?.length>0 && !isProdEdit" >
-                    <div class="col-sm-10">
-                        <select class="form-control" (change)="showAddProductConfigModal($event);">
-                            <ng-container *ngFor="let item of subCategoryList">
-                                <option selected="true" hidden="true">Select A SubCategory</option>
-                                <option [value]="item.id">{{item.name}}</option>
-                            </ng-container>
-                        </select>
-                    </div>
-                    <div class="col-sm-2 spinner-border text-primary" *ngIf="loader.subCategory"></div>
-                </div>
-                <div class="row mb-3" *ngIf="!subCategoryList && !isProdEdit">
-                    <div class="col-sm-10">
-                        <small class="text-danger h6">This Category has no Sub-Category, Please Contact to Admin</small>
-                    </div>
-                    <div class="col-sm-2 spinner-border text-primary" *ngIf="loader.subCategory"></div>
-                </div>
-                <ng-container *ngIf="showAddProductConfig">
-
-                    <div class="row">
-                        <div class="col-sm-8">
-                            <div class="form-group d-flex flex-column" *ngIf="!isProdEdit">
-                                <label for="iconFile">Product Icon</label>
-                                <input type="file" class="form-control-file mt-3" (change)="addIcon($event)"
-                                    id="iconFile">
-                            </div>
-                        </div>
-                        <div class="col-sm-4" >
-                            <img *ngIf="addProductConfig['image']" ngDefaultControl [src]="addProductConfig['image']"
-                                [(ngModel)]="addProductConfig['image']" width="100" height="100" alt="">
-                        </div>
-                    </div>
-                    <div class="form-group d-flex flex-column mt-3">
-                        <label for="productName">Product Name</label>
-                        <input class="form-control mt-3 w-75" type="text" ngDefaultControl
-                            [(ngModel)]="addProductConfig['name']" placeholder="Product Name">
-                    </div>
-                    <div class="form-group d-flex flex-column mt-3">
-                        <label for="productName">Product Description</label>
-                        <input class="form-control mt-3 w-75" type="text" ngDefaultControl
-                            [(ngModel)]="addProductConfig['description']" placeholder="Product Description">
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <div class="form-group d-flex flex-column mt-3">
-                                <label for="productName">Product Price</label>
-                                <input class="form-control mt-3 w-75" type="text" ngDefaultControl
-                                    [(ngModel)]="addProductConfig['price']" placeholder="Product Price">
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group d-flex flex-column mt-3">
-                                <label for="productName">Product Discount</label>
-                                <input class="form-control mt-3 w-75" type="text" ngDefaultControl
-                                    [(ngModel)]="addProductConfig['discount_id']" placeholder="Product Discount">
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group d-flex flex-column mt-3">
-                                <label for="productName">Product Quantity</label>
-                                <input class="form-control mt-3 w-75" type="text" ngDefaultControl
-                                    [(ngModel)]="addProductConfig['quantity']" placeholder="Product Quantity">
-                            </div>
-                        </div>
-                    </div>
-
-                </ng-container>
-            </div>
-
-            <div class="mt-3 text-center">
-                <div><strong class="text-danger m-2">{{errorMessage}}</strong></div>
-                <button class="btn btn-success" *ngIf="!isProdEdit" (click)="addNewProduct()">Add</button>
-                <button class="btn btn-success" *ngIf="isProdEdit" (click)="editProduct()">Edit</button>
-            </div>
-        </div>
-    </div>
-
 </div>
-
-<!-- End Modal -->
 <div class="loader" *ngIf="loader.showLoader && productList?.length==0">
     <div class="justify-content-center jimu-primary-loading"></div>
 </div>
-
-
-
-
-<common-product-card [inputConfig]="{'data':productList?.products,'baseImgPath':basePath}" [activeCardContainer]="activeCardContainer" (emitToParent)="receieveChildEvent($event)"></common-product-card>
+<common-product-card [inputConfig]="{'data':productList?.products,'baseImgPath':prodImgUrl}" [activeCardContainer]="activeCardContainer" (emitToParent)="receieveChildEvent($event)"></common-product-card>
 
 <ng-container *ngIf="!loader.showLoader && productList?.length==0">
     <div class="container-fluid">

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { AdminService } from 'src/app/services/admin.service';
 
 @Component({
@@ -17,12 +17,36 @@ export class CommonProductCardComponent {
 
   constructor(private adminService:AdminService){}
 
+  ngOnChanges() {
+    if(this.inputConfig.data){
+      this.removeBracketsFromImgName(this.inputConfig.data);
+    }
+    
+}
+
+  removeBracketsFromImgName(data:any){
+      data.forEach((item:any)=>{
+        if(item.image.includes("{")){
+          item.image = item.image.replace( /[{}]/g, '' );
+        } else if(item.image.includes("[")){
+          item.image = item.image.replace(/[\[\]']+/g,'');
+          // item.image = item.image.split(",")[0];
+        }else{
+          item.image = item.image.split(",");  
+        }
+      })
+  }
+
   navigateSubCat(id:any){
     this.emitToParent.emit({'action':'NavigateToSub','value':id})
   }
 
-  openEditCategoryModal(catItem:any){
-    this.emitToParent.emit({'action':'openEditModal','value':catItem})
+    navigateToEditProduct(catItem:any){
+    this.emitToParent.emit({'action':'editProduct','value':catItem})
+  }
+
+    openEditCategoryModal(catItem:any){
+    this.emitToParent.emit({'action':'editProduct','value':catItem})
   }
   
   changeProductStatus(item:any,currentStatus:any){
@@ -51,6 +75,4 @@ export class CommonProductCardComponent {
   removeCatFromHot(item:any){
     this.emitToParent.emit({action:'removeCatFromHot',value:item});
   }
-  
-
 }

@@ -7,6 +7,8 @@ import { BaseService } from './base.service';
 })
 export class VendorService extends BaseService{
   
+  editProductConfig:any;
+
   constructor(http:HttpClient) {
     super(http);
 }
@@ -31,6 +33,18 @@ updateProductStatusByVendor(params:any,callback:any){
 
 editProductByVendor(params:any,callback:any){
   this.postData(params, this.httpUrls['editProductByVendor'], callback);
+}
+
+fetchImageUrl(params:any,callback:any){
+  this.postData(params, this.httpUrls['addImage'], callback);
+}
+
+passEditProductData(product:any){
+  this.editProductConfig = product;
+}
+
+getPassedEditProductData(){
+  return this.editProductConfig;
 }
 
 }

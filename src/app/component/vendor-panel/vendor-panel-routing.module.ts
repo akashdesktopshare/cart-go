@@ -22,7 +22,11 @@ const routes: Routes = [
       },
       {
         path:'products',
-        loadChildren:()=>import("./products/products.module").then(m=>m.ProductsModule)
+        loadChildren:()=>import("./products/products.module").then(m=>m.ProductsModule),
+      },
+      {
+        path:'products/:id',
+        loadChildren:()=>import("./products/add-products/add-products.module").then(m=>m.AddProductsModule)
       },
       {
         path:'product-detail/:id',

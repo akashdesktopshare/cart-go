@@ -73,8 +73,8 @@ export class ProductService extends BaseService {
     this.getData({}, this.httpUrls['fetchCategoryList'], callback);
   }
 
-  fetchProductsList(callback:any){
-    this.getData({}, this.httpUrls['fetchProductList'], callback);
+  fetchProductsList(params:any,callback:any){
+    this.postData(params, this.httpUrls['fetchProductList'], callback);
   }
 
   fetchProductsById(prodId:any,callback:any){

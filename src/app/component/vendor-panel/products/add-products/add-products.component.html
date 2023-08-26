@@ -1,0 +1,112 @@
+<div class="container">
+    <div class="row p-3 bg-light align-items-center">
+        <div class="col-sm-6  ps-3 h3 ">{{isProdEdit ? 'Edit Products' : 'Add Products'}}</div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-sm-4 ps-4">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb ps-2">
+                  <li class="breadcrumb-item">Vendor-Panel</li>
+                  <li class="breadcrumb-item"> <a href="javascript:void(0);" [routerLink]="['/vendor-panel/products']">Products</a></li>
+                  <li class="breadcrumb-item active" >{{isProdEdit ? 'Edit Products' : 'Add Products'}}</li>
+                </ol>
+              </nav>
+        </div>
+    </div>
+    <div class="row bg-light p-4">
+        <div class="col-sm-9">
+            <div class="input-box">
+                <div class="row mb-3" *ngIf="!isProdEdit">
+                    <div class="col-sm-4">
+                        <select class="form-control" (change)="getSubCategoryById($event)">
+                            <ng-container *ngFor="let item of categoryList">
+                                <option selected="true" hidden="true">Select A Category</option>
+                                <option [value]="item.id">{{item.name}}</option>
+                            </ng-container>
+                        </select>
+                    </div>
+                    <div class="col-sm-2"></div>
+                </div>
+                <div class="row mb-3" *ngIf="subCategoryList?.length>0 && !isProdEdit">
+                    <div class="col-sm-4">
+                        <select class="form-control" (change)="showAddProductConfigModal($event);">
+                            <ng-container *ngFor="let item of subCategoryList">
+                                <option selected="true" hidden="true">Select A SubCategory</option>
+                                <option [value]="item.id">{{item.name}}</option>
+                            </ng-container>
+                        </select>
+                    </div>
+                    <div class="col-sm-2 spinner-border text-primary" *ngIf="loader.subCategory"></div>
+                </div>
+                <div class="row mb-3" *ngIf="!subCategoryList && !isProdEdit">
+                    <div class="col-sm-5">
+                        <small class="text-danger h6">This Category has no Sub-Category, Please Contact to Admin</small>
+                    </div>
+                    <div class="col-sm-2 spinner-border text-primary" *ngIf="loader.subCategory"></div>
+                </div>
+                    <div class="row" *ngIf="!isProdEdit">
+                        <div class="col-sm-3">
+                            <div class="form-group d-flex flex-column">
+                                <a href="javascript:void(0);" class="btn btn-primary btn-sm mt-3"
+                                    (click)="showModal=true;">Upload Product Images</a>
+                                <ng-container *ngIf="showModal">
+                                    <app-attach-file (emitToParent)="receiveChildEvent($event)"></app-attach-file>
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="col-sm-9">
+                           
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <div class="form-group d-flex flex-column mt-3">
+                                <input class="form-control mt-3 w-75" type="text" ngDefaultControl
+                                    [(ngModel)]="addProductConfig['name']" placeholder="Product Name" [disabled]="!showAddProductConfig && !isProdEdit">
+                            </div>
+                            <div class="form-group d-flex flex-column mt-3">
+                                <input class="form-control mt-3 w-75" type="text" ngDefaultControl
+                                    [(ngModel)]="addProductConfig['description']" placeholder="Product Description" [disabled]="!showAddProductConfig && !isProdEdit">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group d-flex flex-column mt-3">
+                                <input class="form-control mt-3 w-75" type="text" ngDefaultControl
+                                    [(ngModel)]="addProductConfig['price']" placeholder="Product Price" [disabled]="!showAddProductConfig && !isProdEdit">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group d-flex flex-column mt-3">
+                                <input class="form-control mt-3 w-75" type="text" ngDefaultControl
+                                    [(ngModel)]="addProductConfig['discount_id']" placeholder="Product Discount" [disabled]="!showAddProductConfig && !isProdEdit">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group d-flex flex-column mt-3">
+                                <input class="form-control mt-3 w-75" type="text" ngDefaultControl
+                                    [(ngModel)]="addProductConfig['quantity']" placeholder="Product Quantity" [disabled]="!showAddProductConfig && !isProdEdit">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <div><strong class="text-danger m-2">{{errorMessage}}</strong></div>
+                        <button class="btn btn-success" *ngIf="!isProdEdit" (click)="addNewProduct()">Add</button>
+                        <button class="btn btn-success" *ngIf="isProdEdit" (click)="editProduct()">Edit</button>
+                    </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="row">
+            <ng-container *ngFor="let item of addProductConfig['image']">
+                    <div class="col-sm-6 mb-3">
+                        <img [src]="productImgUrl+item" width="100" height="80" alt="" class="product-img">
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+    
+</div>

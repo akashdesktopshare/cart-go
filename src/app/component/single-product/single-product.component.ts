@@ -33,8 +33,10 @@ export class SingleProductComponent {
         this.loader=false;
         console.log(res);
         this.singleProduct  = res.data.product[0];
+        this.removeBracketsFromImgName(res.data.product);
       }
     })
+    
     // let cartData:any = JSON.parse(<any>localStorage.getItem("cartData"));
     // if(cartData){
     //  let singleProdItem:any =  cartData.filter((item:any,idx:any) => {
@@ -47,6 +49,20 @@ export class SingleProductComponent {
     // this.prodService.getSingleProduct(prodId,(res:any)=>{
     //   this.singleProduct = res.data;
     // })
+  }
+
+  
+  removeBracketsFromImgName(data: any) {
+    data.forEach((item: any) => {
+      if (item.image.includes("{")) {
+        item.image = item.image.replace(/[{}]/g, '');
+      } else if (item.image.includes("[")) {
+        item.image = item.image.replace(/[\[\]']+/g, '');
+        item.image = item.image.split(",")[0];
+      } else {
+        item.image = item.image.split(",")[0].trim();
+      }
+    })
   }
 
   handleQuantity(val:any){

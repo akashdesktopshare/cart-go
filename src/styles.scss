@@ -60,6 +60,7 @@ body{
     top: calc(50% - 16px);
     -webkit-animation-delay: 0.16s !important;
     animation-delay: 0.16s !important;
+    z-index: 9999;
   }
   
   @-webkit-keyframes loading-keys-app-loading {

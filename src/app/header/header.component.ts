@@ -33,7 +33,7 @@ export class HeaderComponent {
   profileImg:any;
   formData:any=new FormData();
 
-  constructor(private prodService: ProductService,private _authService:AuthService,public _constant:AppConstants){
+  constructor(private prodService: ProductService,private _authService:AuthService,public _constant:AppConstants,private router:Router){
     this.prodService.subscribeOnValueChange('HeaderComp',(event:any)=>{
       if(event['action']=='itemAdded'){
         console.log(213);
@@ -97,6 +97,10 @@ export class HeaderComponent {
   }
 
   toggleMenu(): void {
+    if(!this.isLoggedIn){
+      this.showModal=true;
+      this.showActiveForm['login']=true;
+    }
     this.toggleDropdown = !this.toggleDropdown;
     if(this.toggleDropdown){
       console.log(12);
@@ -189,4 +193,15 @@ export class HeaderComponent {
       this.toggleForm();
     }
   }
+
+  productsByFilterCategory(catId:any){
+      this.router.navigate(["/products"],{queryParams:{'category_id':catId,'user_id': this.loggedInUserDetails?.user_id ? this.loggedInUserDetails?.user_id.toString() : '0'}});
+      this.prodService.emitOnValueChange({action:'filterByCategory',value:{'category_id':catId,'user_id': this.loggedInUserDetails?.user_id ? this.loggedInUserDetails?.user_id.toString() : '0'}});
+  }
+
+  productsByFilterSubCategory(subCatid:any,catId:any){
+    this.router.navigate(["/products"],{queryParams:{'category_id':catId,'subCategory_id':subCatid,'user_id': this.loggedInUserDetails?.user_id ? this.loggedInUserDetails?.user_id.toString() : '0'}});
+    this.prodService.emitOnValueChange({action:'filterBySubCategory',value:{'category_id':catId,'subCategory_id':subCatid,'user_id': this.loggedInUserDetails?.user_id ? this.loggedInUserDetails?.user_id.toString() : '0'}});
+  }
+  
 }

@@ -16,11 +16,11 @@
                 <option [value]="catItem.name" *ngFor="let catItem of categoryList">{{catItem.name}}</option>
                 </datalist>
             </form>
-            <li class="nav-item" *ngIf="!isLoggedIn">
-                <a class="nav-link" href="javascript:void(0);" (click)="showModal=true;showActiveForm['login']=true;">
+            <!-- <li class="nav-item" *ngIf="!isLoggedIn">
+                <a class="nav-link" href="javascript:void(0);" >
                   <button class="btn btn-danger rounded-0">Login</button>
                 </a>
-            </li>
+            </li> -->
           <li class="nav-item">
             <a class="nav-link" aria-current="page"  href="javascript:void(0);" routerLink="/wishlist">
               <img src="../../assets/images/fav.svg" width="20" height="20" alt="">
@@ -59,17 +59,17 @@
             </button>
             <ul class="dropdown-menu multi-level" (mouseleave)="showCategoryDrpdown=false;" *ngIf="showCategoryDrpdown" role="menu">
               <ng-container *ngFor="let catItem of categoryList">
-                <li class="dropdown-submenu border-bottom">
+                <li class="dropdown-submenu border-bottom p-2">
                   <div class="d-flex align-items-center ps-2">
                     <img [src]="product_img_path+catItem.image" class="ms-2" width="30" height="30" alt="">
-                    <a  class="dropdown-item" tabindex="-1" href="javascript:void(0);">{{catItem.name|titlecase}}</a>
+                    <a  class="dropdown-item" tabindex="-1" href="javascript:void(0);" (click)="productsByFilterCategory(catItem.id)">{{catItem.name|titlecase}}</a>
                   </div>
                   <ul class="dropdown-menu"*ngIf="catItem.sub_category.length>0" >
                   <ng-container *ngFor="let subCatItem of catItem.sub_category">
                       <li class="dropdown-item border-bottom" >
                         <div class="d-flex align-items-center">
                           <img [src]="product_img_path+subCatItem.image" class="ms-2" width="30" height="30" alt="">
-                          <a  class="dropdown-item" tabindex="-1" href="javascript:void(0);">{{subCatItem.name|titlecase}}</a>
+                          <a  class="dropdown-item" tabindex="-1" href="javascript:void(0);" (click)="productsByFilterSubCategory(subCatItem.id,catItem.id)">{{subCatItem.name|titlecase}}</a>
                         </div>
                         </li>
                     </ng-container>

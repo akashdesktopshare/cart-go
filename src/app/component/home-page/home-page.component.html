@@ -8,13 +8,13 @@
     </div>
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <img src="../../../assets/images/carosa-img-1.jpg" class="d-block w-100" alt="...">
+        <img src="../../../assets/images/carosa-img-1.jpg" class="d-block w-100 img-responsive" height="500" alt="...">
       </div>
       <div class="carousel-item">
-        <img src="https://source.unsplash.com/random/1503x662" class="d-block w-100" alt="...">
+        <img src="https://source.unsplash.com/random/1503x662" class="d-block w-100 img-responsive"  height="500" alt="...">
       </div>
       <div class="carousel-item">
-        <img src="https://source.unsplash.com/random/1503x661" class="d-block w-100" alt="...">
+        <img src="https://source.unsplash.com/random/1503x661" class="d-block w-100 img-responsive"  height="500" alt="...">
       </div>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -38,18 +38,73 @@
       <div class="scroll-parent">
         <div class="scroll-element primary">
         <ng-container *ngFor="let item of hotshotList">
-          <img class="item" [src]="productImgPath+item.image" width="200" height="200" alt="https://via.placeholder.com/200x200?text=Product">
+          <img class="item" [src]="productImgPath+item.image" (click)="filterProductsbyHotCat(item.id)" width="200" height="200" alt="https://via.placeholder.com/200x200?text=Product">
         </ng-container>
       </div>
       <div class="scroll-element secondary">
         <ng-container *ngFor="let item of hotshotList">
-          <img class="item" [src]="productImgPath+item.image" width="200" height="200" alt="https://via.placeholder.com/200x200?text=Product">
+          <img class="item" [src]="productImgPath+item.image" (click)="filterProductsbyHotCat(item.id)" width="200" height="200" alt="https://via.placeholder.com/200x200?text=Product">
         </ng-container>
       </div>
     </div>
     </div>
   </div>
 
+  <!-- Featured Product Section.. -->
+  <div class="container-fluid section-new-arrival">
+    <div class="title my-5">
+      <div class="row align-items-center py-3">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-2"></div>
+        <div class="col-sm-6 text-center">
+          <span class="">Best Products</span>
+        </div>
+        <div class="col-sm-3 text-center">
+        <a href="javascript:void(0);" routerLink="/products"><strong class="font-weight-bold">View All</strong></a>  
+        </div>
+      </div>
+    </div>
+    <div class="loader" *ngIf="loader">
+      <div class="justify-content-start jimu-primary-loading"></div>
+  </div>
+    <div class="list-new-arrival" *ngIf="!loader">
+      <div class="row justify-content-start my-3 mx-3">
+        <ng-container *ngFor="let prodItems of bestProdList">
+          <div class="revealNewArrival card cards-cat m-4">
+            <div class="fav-product text-end mb-1">
+              <ng-container *ngIf="!prodItems?.isWishlisted">
+                <img src="../../../assets/images/fav.svg" class="no-css-empty-heart" width="20" height="20" alt="" (click)="addRemoveWishlist(prodItems)">
+              </ng-container>
+              <ng-container *ngIf="prodItems?.isWishlisted">
+                <img src="../../../assets/images/filled-heart.jpg" class="no-css-filled-heart"  width="32" height="30" alt="" (click)="addRemoveWishlist(prodItems)">
+              </ng-container>
+            </div>
+            <div class="img">
+              <img class="d-block mx-auto my-4" width="200" height="200" [src]="productImgPath+prodItems.image" alt="Card image cap">
+            </div>
+            <hr class="hr">
+            <div class="card-body">
+              <div class="card-text mb-1"> 
+                <img src="../../../assets/images/star-fill.svg" class="me-3" width="18" height="16" alt="">
+                <img src="../../../assets/images/star-fill.svg" class="me-3" width="18" height="16" alt="">
+                <img src="../../../assets/images/star-fill.svg" class="me-3" width="18" height="16" alt="">
+                <img src="../../../assets/images/star-fill.svg" class="me-3" width="18" height="16" alt="">
+                 <!-- {{singleProduct.rating}} -->
+                </div>
+             <a href="javascript:void(0);" [routerLink]="['/single-product',prodItems.id]">
+              <strong class="card-title text-warning text-bold h6 text-truncate">{{prodItems.name|titlecase}}</strong>
+            </a> 
+              <span class="card-text text-truncate">{{prodItems.description}}</span>
+              <span class="card-text"> <del>${{prodItems.price}}</del><strong> ${{prodItems.price-prodItems.discount_id}}</strong> </span>
+              <div class="mt-2 mb-3 position-absolute bottom-0 top-75" >
+                <a href="javascript:void(0);" class="btn btn-sm btn-warning px-3" (click)="addToCart(prodItems)">Add to Cart</a>
+              </div>
+            </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  </div>
   <!-- New Arrival Section -->
 <div class="container-fluid section-new-arrival">
     <div class="title my-5">
@@ -106,59 +161,4 @@
   </div>
   </div>
   
-  <!-- Best Product Section.. -->
-  <div class="container-fluid section-new-arrival">
-    <div class="title my-5">
-      <div class="row align-items-center py-3">
-        <div class="col-sm-1"></div>
-        <div class="col-sm-2"></div>
-        <div class="col-sm-6 text-center">
-          <span class="">Best Products</span>
-        </div>
-        <div class="col-sm-3 text-center">
-        <a href="javascript:void(0);" routerLink="/products"><strong class="font-weight-bold">View All</strong></a>  
-        </div>
-      </div>
-    </div>
-    <div class="loader" *ngIf="loader">
-      <div class="justify-content-start jimu-primary-loading"></div>
-  </div>
-    <div class="list-new-arrival" *ngIf="!loader">
-      <div class="row justify-content-start my-3 mx-3">
-        <ng-container *ngFor="let prodItems of bestProdList">
-          <div class="revealNewArrival card cards-cat m-4">
-            <div class="fav-product text-end mb-1">
-              <ng-container *ngIf="!prodItems?.isWishlisted">
-                <img src="../../../assets/images/fav.svg" class="no-css-empty-heart" width="20" height="20" alt="" (click)="addRemoveWishlist(prodItems)">
-              </ng-container>
-              <ng-container *ngIf="prodItems?.isWishlisted">
-                <img src="../../../assets/images/filled-heart.jpg" class="no-css-filled-heart"  width="32" height="30" alt="" (click)="addRemoveWishlist(prodItems)">
-              </ng-container>
-            </div>
-            <div class="img">
-              <img class="d-block mx-auto my-4" width="200" height="200" [src]="productImgPath+prodItems.image" alt="Card image cap">
-            </div>
-            <hr class="hr">
-            <div class="card-body">
-              <div class="card-text mb-1"> 
-                <img src="../../../assets/images/star-fill.svg" class="me-3" width="18" height="16" alt="">
-                <img src="../../../assets/images/star-fill.svg" class="me-3" width="18" height="16" alt="">
-                <img src="../../../assets/images/star-fill.svg" class="me-3" width="18" height="16" alt="">
-                <img src="../../../assets/images/star-fill.svg" class="me-3" width="18" height="16" alt="">
-                 <!-- {{singleProduct.rating}} -->
-                </div>
-             <a href="javascript:void(0);" [routerLink]="['/single-product',prodItems.id]">
-              <strong class="card-title text-warning text-bold h6 text-truncate">{{prodItems.name|titlecase}}</strong>
-            </a> 
-              <span class="card-text text-truncate">{{prodItems.description}}</span>
-              <span class="card-text"> <del>${{prodItems.price}}</del><strong> ${{prodItems.price-prodItems.discount_id}}</strong> </span>
-              <div class="mt-2 mb-3 position-absolute bottom-0 top-75" >
-                <a href="javascript:void(0);" class="btn btn-sm btn-warning px-3" (click)="addToCart(prodItems)">Add to Cart</a>
-              </div>
-            </div>
-        </div>
-      </ng-container>
-    </div>
-  </div>
-  </div>
 </ng-container>

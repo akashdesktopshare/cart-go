@@ -32,7 +32,7 @@ export class MyProfileComponent {
         'role_id':['',Validators.required],
         'first_name':['',Validators.required],
         'last_name':['',Validators.required],
-        'email':['',Validators.required],
+        'email':[,Validators.required,],
         'password':['',Validators.required],
         'mobile':['',Validators.required],
         'country_code':['',Validators.required],
@@ -51,6 +51,9 @@ export class MyProfileComponent {
     for (let k in this.editProfileModal.value)
     {
       this.editProfileModal.controls[k].setValue(userData[k]);
+      if(k === "mobile" || k === "email"){
+        this.editProfileModal.controls[k].disable();
+      }
     } 
 
      console.log(this.editProfileModal.controls);

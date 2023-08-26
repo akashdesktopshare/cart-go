@@ -65,6 +65,9 @@
               </div>
             </div>
           </ng-container>
+          <ng-container *ngIf="productList?.length==0">
+              <div class="display-6 text-center mt-4">No Products Found</div>
+          </ng-container>
         </div>
       </div>
      </div>

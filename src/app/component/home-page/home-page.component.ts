@@ -1,4 +1,5 @@
 import { Component, ElementRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Router } from '@angular/router';
 import { AlertService } from 'src/app/services/alert.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { ProductService } from 'src/app/services/product.service';
@@ -25,7 +26,7 @@ export class HomePageComponent {
   @ViewChild('slide') slideRef!: ElementRef;
   position: number = 0;
 
-  constructor(private prodService:ProductService,private authService:AuthService,private alertService:AlertService){}
+  constructor(private prodService:ProductService,private authService:AuthService,private alertService:AlertService,private router : Router){}
 
   ngOnInit(){
     window.scrollTo(0,0);
@@ -39,7 +40,6 @@ export class HomePageComponent {
     if(this.isLoggedIn){
       this.addProductLocalCartToDb();
     }
-    // this.getProductsList();
     this.getHotShotList();
     this.getArrivalProdData();
 
@@ -83,6 +83,20 @@ export class HomePageComponent {
       if(res.code==200 && res.data){
         this.loader=false;
         this.newArrivalProdlist = this.bestProdList = res.data.products;
+        this.removeBracketsFromImgName(this.newArrivalProdlist);
+      }
+    })
+  }
+
+  removeBracketsFromImgName(data: any) {
+    data.forEach((item: any) => {
+      if (item.image.includes("{")) {
+        item.image = item.image.replace(/[{}]/g, '');
+      } else if (item.image.includes("[")) {
+        item.image = item.image.replace(/[\[\]']+/g, '');
+        item.image = item.image.split(",")[0];
+      } else {
+        item.image = item.image.split(",")[0].trim();
       }
     })
   }
@@ -90,17 +104,6 @@ export class HomePageComponent {
   getBestProdData(){
     this.prodService.getBestProducts((res:any)=>{
       this.bestProdList = res.data;
-    })
-  }
-
-  getProductsList(){
-    this.loader=true;
-    this.prodService.fetchProductsList((res:any)=>{
-      if(res.code==200 && res.data){
-        this.loader=false;
-        this.newArrivalProdlist = res.data.products;
-         this.bestProdList = res.data.products;
-      }
     })
   }
 
@@ -231,6 +234,11 @@ export class HomePageComponent {
     }
 
 
+  }
+
+  filterProductsbyHotCat(hotId:any){
+    this.router.navigate(["/products"],{queryParams:{'category_id':hotId,'user_id': this.userId ? this.userId.toString() : '0'}});
+    this.prodService.emitOnValueChange({action:'filterByHotCategory',value:{'category_id':hotId,'user_id': this.userId ? this.userId.toString() : '0'}});
   }
 
 }

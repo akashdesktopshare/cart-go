@@ -35,6 +35,7 @@ export class BaseService {
     'fetchVendorReqList':'getVendorRequests',
     'updateProductStatusByVendor':'updateProductStatusByVendor',
     'editProductByVendor':'editProductByVendor',
+    'addImage':'addImage',
   }
 
   constructor( public http:HttpClient) { }
